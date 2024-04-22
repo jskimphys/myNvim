@@ -47,7 +47,7 @@ vim.opt.showmode=false
 vim.cmd('colorscheme rose-pine')
 
 -- tmux color
-vim.opt.background='dark'
+-- vim.opt.background='dark'
 vim.opt.termguicolors = true
 
 
@@ -77,3 +77,6 @@ end
 if vim.fn.isdirectory(vim.fn.expand('$HOME/.nvim/swapdir')) == 0 then
   vim.fn.mkdir(vim.fn.expand('$HOME/.nvim/swapdir'), 'p')
 end
+
+-- netrw error
+vim.g.loaded_netrw = 0
