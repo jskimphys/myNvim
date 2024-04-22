@@ -64,16 +64,16 @@ vim.keymap.set('n', '<leader>pn', ':set nopaste<CR>', { desc = 'unset paste mode
 
 -- history
 vim.opt.undofile = true
-vim.opt.undodir = '~/.nvim/undodir'
+vim.opt.undodir = vim.fn.expand('$HOME/.nvim/undodir')
 vim.opt.undolevels = 5000
 vim.opt.swapfile = true
-vim.opt.directory = '~/.nvim/swapdir'
+vim.opt.directory = vim.fn.expand('$HOME/.nvim/swapdir')
 
 
 -- create directories for undodir and backupdir
-if vim.fn.isdirectory('~/.nvim/undodir') == 0 then
-  vim.fn.mkdir('~/.nvim/undodir', 'p')
+if vim.fn.isdirectory(vim.fn.expand('$HOME/.nvim/undodir')) == 0 then
+  vim.fn.mkdir(vim.fn.expand('$HOME/.nvim/undodir'), 'p')
 end
-if vim.fn.isdirectory('~/.nvim/swapdir') == 0 then
-  vim.fn.mkdir('~/.nvim/swapdir', 'p')
+if vim.fn.isdirectory(vim.fn.expand('$HOME/.nvim/swapdir')) == 0 then
+  vim.fn.mkdir(vim.fn.expand('$HOME/.nvim/swapdir'), 'p')
 end
