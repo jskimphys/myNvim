@@ -1,6 +1,5 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
-
 local ensure_packer = function()
   local fn = vim.fn
   local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
@@ -36,21 +35,26 @@ return require('packer').startup(function(use)
 		  vim.cmd('colorscheme rose-pine')
 	  end
   })
+  use('folke/tokyonight.nvim')
+
+  -- file explorer
+  use('nvim-tree/nvim-tree.lua')
+  use('nvim-tree/nvim-web-devicons') -- optional, file icon
 
   -- language syntax parser
   use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
   -- access parsertree directly
   use('nvim-treesitter/playground')
 
-  --copilot
+  -- copilot
   use('github/copilot.vim')
   
   --
-
   use('mbbill/undotree')
 
   use('tpope/vim-fugitive')
 
+  -- lsp 
   use {
 	  'VonHeikemen/lsp-zero.nvim',
 	  branch = 'v3.x',
@@ -66,13 +70,13 @@ return require('packer').startup(function(use)
 	  }
   }
 
+  -- format
+  use('kdheepak/JuliaFormatter.vim')
+
   -- gui related plugins
   use('vim-airline/vim-airline')
   use('vim-airline/vim-airline-themes')
 
-  -- file explorer
-  use('nvim-tree/nvim-tree.lua')
-  use('nvim-tree/nvim-web-devicons') -- optional, file icon
 
   --autocomplete
   --use('CmdlineComplete')

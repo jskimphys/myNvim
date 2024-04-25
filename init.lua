@@ -32,7 +32,7 @@ vim.opt.clipboard='unnamedplus'
 vim.opt.hlsearch = true
 vim.opt.ignorecase = true
 vim.opt.incsearch = true
---vim.opt.smartcase = true
+vim.opt.smartcase = true
 
 
 -- for vim-airline
@@ -44,12 +44,9 @@ vim.opt.ruler=true
 vim.opt.showmode=false
 
 --colorscheme
-vim.cmd('colorscheme rose-pine')
-
--- tmux color
--- vim.opt.background='dark'
+-- set true colors
 vim.opt.termguicolors = true
-
+vim.opt.background='dark'
 
 -- faster Scroll
 vim.keymap.set('n', '<C-e>', '10<C-e>', { desc = 'faster scroll' })
@@ -78,5 +75,9 @@ if vim.fn.isdirectory(vim.fn.expand('$HOME/.nvim/swapdir')) == 0 then
   vim.fn.mkdir(vim.fn.expand('$HOME/.nvim/swapdir'), 'p')
 end
 
--- netrw error
-vim.g.loaded_netrw = 0
+-- filetype
+vim.cmd('filetype plugin indent on')
+-- julia python indent
+vim.cmd('autocmd FileType julia setlocal shiftwidth=4 tabstop=4 softtabstop=4')
+vim.cmd('autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4')
+
