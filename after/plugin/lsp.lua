@@ -23,6 +23,8 @@ lsp.setup()
 -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guide/integrate-with-mason-nvim.md
 require('mason').setup({})
 require('mason-lspconfig').setup({
+  -- NOTE: check the available servers here
+  -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
   ensure_installed = {'julials', 'clangd', 'matlab_ls', 'pyright'},
   handlers = {
     function(server_name)
