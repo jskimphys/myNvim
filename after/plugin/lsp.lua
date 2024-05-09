@@ -26,6 +26,11 @@ require('mason-lspconfig').setup({
   -- NOTE: check the available servers here
   -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
   ensure_installed = {'julials', 'clangd', 'matlab_ls', 'pyright'},
+  -- clangd setup
+  clangd = {
+    cmd = {'clangd', '--background-index', '--query-driver=/usr/bin/c++'},
+    filetypes = {'c', 'cc', 'cpp', 'h', 'hh', 'hpp', 'objc', 'objcpp'},
+  },
   handlers = {
     function(server_name)
       require('lspconfig')[server_name].setup({})
