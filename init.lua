@@ -1,4 +1,4 @@
-require("theprimeagen.packer")
+require("theprimeagen.lazy")
 require("theprimeagen.remap")
 print("hello. nvim init")
 
@@ -48,6 +48,8 @@ vim.opt.showmode=false
 -- set true colors
 vim.opt.termguicolors = true
 vim.opt.background='dark'
+vim.cmd.colorscheme('tokyonight-storm')
+
 
 -- faster Scroll
 vim.keymap.set('n', '<C-e>', '10<C-e>', { desc = 'faster scroll' })
@@ -81,4 +83,109 @@ vim.cmd('filetype plugin indent on')
 -- julia python indent
 vim.cmd('autocmd FileType julia setlocal shiftwidth=4 tabstop=4 softtabstop=4')
 vim.cmd('autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4')
+
+--------------------- Plugins ---------------------
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>sf', builtin.find_files, {})
+vim.keymap.set('n', '<leader>sg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>sG', builtin.git_files, {})
+vim.keymap.set('n', '<leader>sb', builtin.buffers, {})
+
+-- nvim-tree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.nvim_tree_hijack_netrw = true
+
+-- empty setup using defaults
+require("nvim-tree").setup()
+
+vim.keymap.set('n', '<leader>nn', ':NvimTreeToggle<CR>', { desc = 'toggle nvim-tree' })
+vim.keymap.set('n', '<leader>nf', ':NvimTreeFindFile<CR>', { desc = 'find file in nvim-tree' })
+-- OR setup with some options
+--require("nvim-tree").setup({
+--  sort = {
+--    sorter = "case_sensitive",
+--  },
+--  view = {
+--    width = 30,
+--  },
+--  renderer = {
+--    group_empty = true,
+--  },
+--  filters = {
+--    dotfiles = true,
+--  },
+
+----- undo-tree
+vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+
+
+----- LSP
+local lsp = require('lsp-zero')
+
+lsp.preset('recommended')
+
+local cmp = require('cmp')
+local cmp_select = {behavior = cmp.SelectBehavior.Select}
+local cmp_mappings = lsp.defaults.cmp_mappings({
+	['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+	['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+	['<C-y>'] = cmp.mapping.confirm({ select = true }),
+	['<C-Space>'] = cmp.mapping.complete()
+})
+
+lsp.on_attach(function(client, bufnr)
+  -- see :help lsp-zero-keybindings
+  -- to learn the available actions
+  lsp.default_keymaps({buffer = bufnr})
+end)
+
+lsp.setup()
+
+-- to learn how to use mason.nvim
+-- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guide/integrate-with-mason-nvim.md
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  -- NOTE: check the available servers here
+  -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
+  ensure_installed = {'julials', 'clangd', 'matlab_ls', 'pyright'},
+  -- clangd setup
+  clangd = {
+    cmd = {'clangd', '--background-index', '--query-driver=/usr/bin/c++'},
+    filetypes = {'c', 'cc', 'cpp', 'h', 'hh', 'hpp', 'objc', 'objcpp'},
+  },
+  handlers = {
+    function(server_name)
+      require('lspconfig')[server_name].setup({})
+    end,
+  },
+})
+
+
+----- julia formatter
+vim.keymap.set('n', '<leader>jf', ':JuliaFormatterFormat<CR>', { noremap = true })
+
+vim.g.JuliaFormatter_options = {
+    indent = 4,
+    margin = 92,
+    always_for_in = true,
+    whitespace_typedefs = false,
+    whitespace_ops_in_indices = true,
+}
+
+
+----- indentline configuration
+vim.g.indentLine_color_term = 243
+vim.g.indentLine_char_list = {'|', '¦', '┆', '┊'}
+
+-----  bufferline configuration
+require("bufferline").setup{}
+
+----- lua line configuration
+require('lualine').setup({
+  options = {
+    theme = 'ayu_dark'
+  }
+})
+
 
