@@ -25,5 +25,6 @@
   "vim-fugitive": { "branch": "master", "commit": "ce882460cf3db12e99f8bf579cbf99e331f6dd4f" },
   "vim-highlightedyank": { "branch": "master", "commit": "afb0f262b490706c23e94012c2ab9fa67c0481ce" },
   "vim-matchup": { "branch": "master", "commit": "2d660e4aa7c566014c667af2cda0458043527902" },
-  "vim-todo-highlight": { "branch": "master", "commit": "f63723ef9f3a1cf0a3fd63b84b161c287fea398f" }
+  "vim-todo-highlight": { "branch": "master", "commit": "f63723ef9f3a1cf0a3fd63b84b161c287fea398f" },
+  "wilder.nvim": { "branch": "master", "commit": "679f348dc90d80ff9ba0e7c470c40a4d038dcecf" }
 }

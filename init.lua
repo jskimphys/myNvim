@@ -91,7 +91,7 @@ vim.keymap.set('n', '<leader>sg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>sG', builtin.git_files, {})
 vim.keymap.set('n', '<leader>sb', builtin.buffers, {})
 
--- nvim-tree
+--------------------- nvim-tree ---------------------
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.nvim_tree_hijack_netrw = true
@@ -115,12 +115,30 @@ vim.keymap.set('n', '<leader>nf', ':NvimTreeFindFile<CR>', { desc = 'find file i
 --  filters = {
 --    dotfiles = true,
 --  },
+-------------------------------------------------------
 
 ----- undo-tree
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
 
------ LSP
+------------------- treesitter ---------------------
+local ts = require('nvim-treesitter.configs')
+ts.setup {
+  ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "glsl", "python", "julia", "cpp", "rust", "bash", "wgsl", "matlab", "markdown" },
+  highlight = {
+    enable = true,
+  },
+  -- this is experimental
+  indent = {
+    enable = true,
+  },
+}
+-- define glsl filetype
+vim.cmd('autocmd BufNewFile,BufRead *.frag,*.vert,*.comp set filetype=glsl')
+vim.cmd('autocmd BufNewFile,BufRead *.wgsl set filetype=wgsl')
+vim.treesitter.language.register("glsl", "glsl")
+
+--------------------- LSP ------------------------------
 local lsp = require('lsp-zero')
 
 lsp.preset('recommended')
@@ -148,7 +166,7 @@ require('mason').setup({})
 require('mason-lspconfig').setup({
   -- NOTE: check the available servers here
   -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
-  ensure_installed = {'julials', 'clangd', 'matlab_ls', 'pyright'},
+  ensure_installed = {'julials', 'clangd', 'matlab_ls', 'pyright', 'glsl_analyzer', 'markdown_oxide', 'wgsl_analyzer'},
   -- clangd setup
   clangd = {
     cmd = {'clangd', '--background-index', '--query-driver=/usr/bin/c++'},
@@ -160,6 +178,7 @@ require('mason-lspconfig').setup({
     end,
   },
 })
+---------------------------------------------------
 
 
 ----- julia formatter
@@ -189,3 +208,16 @@ require('lualine').setup({
 })
 
 
+local wilder = require('wilder')
+wilder.setup({modes = {':', '/', '?'}})
+wilder.set_option('renderer', wilder.popupmenu_renderer(
+  wilder.popupmenu_border_theme({
+    highlights = {
+      border = 'Normal', -- highlight to use for the border
+    },
+    -- 'single', 'double', 'rounded' or 'solid'
+    -- can also be a list of 8 characters, see :h wilder#popupmenu_border_theme() for more details
+    border = 'rounded',
+    min_width = '40%',
+  })
+))
