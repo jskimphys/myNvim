@@ -22,7 +22,6 @@ vim.opt.updatetime=100     -- some plugins require fast update time
 vim.opt.ttyfast = true            -- Improve redrawing
 vim.opt.mouse='a'           -- mouse support - necessary evil
 vim.opt.encoding='utf-8'     -- set korean incodings
-vim.opt.termencoding='utf-8' -- set korean incodings
 vim.opt.ttimeout  = true          -- faster esc
 vim.opt.ttimeoutlen=50     -- faster esc 50ms
 vim.opt.clipboard='unnamedplus'
