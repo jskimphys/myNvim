@@ -83,59 +83,15 @@ vim.cmd('filetype plugin indent on')
 vim.cmd('autocmd FileType julia setlocal shiftwidth=4 tabstop=4 softtabstop=4')
 vim.cmd('autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4')
 
---------------------- Plugins ---------------------
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>sf', builtin.find_files, {})
-vim.keymap.set('n', '<leader>sg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>sG', builtin.git_files, {})
-vim.keymap.set('n', '<leader>sb', builtin.buffers, {})
 
---------------------- nvim-tree ---------------------
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-vim.g.nvim_tree_hijack_netrw = true
-
--- empty setup using defaults
-require("nvim-tree").setup()
-
-vim.keymap.set('n', '<leader>nn', ':NvimTreeToggle<CR>', { desc = 'toggle nvim-tree' })
-vim.keymap.set('n', '<leader>nf', ':NvimTreeFindFile<CR>', { desc = 'find file in nvim-tree' })
--- OR setup with some options
---require("nvim-tree").setup({
---  sort = {
---    sorter = "case_sensitive",
---  },
---  view = {
---    width = 30,
---  },
---  renderer = {
---    group_empty = true,
---  },
---  filters = {
---    dotfiles = true,
---  },
--------------------------------------------------------
-
------ undo-tree
-vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
-
-
-------------------- treesitter ---------------------
-local ts = require('nvim-treesitter.configs')
-ts.setup {
-  ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "glsl", "python", "julia", "cpp", "rust", "bash", "wgsl", "matlab", "markdown" },
-  highlight = {
-    enable = true,
-  },
-  -- this is experimental
-  indent = {
-    enable = true,
-  },
-}
 -- define glsl filetype
 vim.cmd('autocmd BufNewFile,BufRead *.frag,*.vert,*.comp set filetype=glsl')
 vim.cmd('autocmd BufNewFile,BufRead *.wgsl set filetype=wgsl')
 vim.treesitter.language.register("glsl", "glsl")
+
+---------------------------------------------------
+------------------------- PLUGINS ------------------------------
+require('setup/plugins')
 
 --------------------- LSP ------------------------------
 local lsp = require('lsp-zero')
@@ -180,17 +136,7 @@ require('mason-lspconfig').setup({
 ---------------------------------------------------
 
 
------ julia formatter
-vim.keymap.set('n', '<leader>jf', ':JuliaFormatterFormat<CR>', { noremap = true })
-
-vim.g.JuliaFormatter_options = {
-    indent = 4,
-    margin = 92,
-    always_for_in = true,
-    whitespace_typedefs = false,
-    whitespace_ops_in_indices = true,
-}
-
+-- appearance (with no or few remaps)
 
 ----- indentline configuration
 vim.g.indentLine_color_term = 243
@@ -206,7 +152,6 @@ require('lualine').setup({
   }
 })
 
-
 local wilder = require('wilder')
 wilder.setup({modes = {':', '/', '?'}})
 wilder.set_option('renderer', wilder.popupmenu_renderer(
@@ -221,14 +166,3 @@ wilder.set_option('renderer', wilder.popupmenu_renderer(
   })
 ))
 
--- aerial => A code outline window for skimming and quick navigation
-require("aerial").setup({
-  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
-  on_attach = function(bufnr)
-    -- Jump forwards/backwards with '{' and '}'
-    vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
-    vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
-  end,
-})
--- You probably also want to set a keymap to toggle aerial
-vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
