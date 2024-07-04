@@ -15,12 +15,22 @@ require('telescope').setup({
 })
 
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>sT', ':Telescope<CR>', { desc = 'show all telescope commands' })
 vim.keymap.set('n', '<leader>sF', builtin.find_files, {desc = 'find files'})
 vim.keymap.set('n', '<leader>sg', builtin.live_grep, {desc = 'live grep'})
 vim.keymap.set('n', '<leader>sf', builtin.git_files, {desc = 'find git files'})
 vim.keymap.set('n', '<leader>sb', builtin.buffers, {desc = 'find buffers'})
 vim.keymap.set('n', '<leader>ss', builtin.grep_string, {desc = 'grep string under cursor'})
+vim.keymap.set('n', '<leader>sT', builtin.treesitter, {desc = 'treesitter'})
+
+vim.keymap.set('n', '<leader>lr', builtin.lsp_references, {desc = 'lsp references'})
+vim.keymap.set('n', '<leader>ld', builtin.lsp_definitions, {desc = 'lsp definitions'})
+vim.keymap.set('n', '<leader>lim', builtin.lsp_implementations, {desc = 'lsp implementations'})
+vim.keymap.set('n', '<leader>lt', builtin.lsp_type_definitions, {desc = 'lsp type definitions'})
+
+vim.keymap.set('n', '<leader>lic', builtin.lsp_incoming_calls, {desc = 'lsp incoming calls'})
+vim.keymap.set('n', '<leader>loc', builtin.lsp_outgoing_calls, {desc = 'lsp outgoing calls'})
+
+
 
 
 -- NvimTree
