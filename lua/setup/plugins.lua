@@ -65,7 +65,7 @@ vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 ------------------- treesitter ---------------------
 local ts = require('nvim-treesitter.configs')
 ts.setup {
-  ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "glsl", "python", "julia", "cpp", "rust", "bash", "wgsl", "matlab", "markdown" },
+  ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "glsl", "python", "julia", "cpp", "rust", "bash", "wgsl", "matlab", "markdown", "json", "yaml", "toml", "html", "css", "javascript", "scss"},
   highlight = {
     enable = true,
   },
