@@ -54,12 +54,14 @@ plugins = {
   "andymass/vim-matchup",
   "machakann/vim-highlightedyank",
 
+  -- git integration(use ":Git" command)
   "tpope/vim-fugitive",
 
+  -- ctags
   "universal-ctags/ctags",
 
-  "sakshamgupta05/vim-todo-highlight",
-
+  -- highlights TODO, FIXME, etc.
+  -- NOTE: use ":TodoTelescope" command to see all the todos
   {
     "folke/todo-comments.nvim",
     dependencies = "nvim-lua/plenary.nvim",
@@ -68,6 +70,7 @@ plugins = {
     end
   },
 
+  -- status line
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' }

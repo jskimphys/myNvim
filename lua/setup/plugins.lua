@@ -31,8 +31,6 @@ vim.keymap.set('n', '<leader>lic', builtin.lsp_incoming_calls, {desc = 'lsp inco
 vim.keymap.set('n', '<leader>loc', builtin.lsp_outgoing_calls, {desc = 'lsp outgoing calls'})
 
 
-
-
 -- NvimTree
 --------------------- nvim-tree ---------------------
 vim.g.loaded_netrw = 1
@@ -65,7 +63,13 @@ vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 ------------------- treesitter ---------------------
 local ts = require('nvim-treesitter.configs')
 ts.setup {
-  ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "glsl", "python", "julia", "cpp", "rust", "bash", "wgsl", "matlab", "markdown", "json", "yaml", "toml", "html", "css", "javascript", "scss"},
+  ensure_installed = { 
+    "c", "cpp", "rust", "python", 
+    "matlab", "julia", "glsl", "wgsl",
+    "javascript", "typescript", "html", "css", "scss", 
+    "json", "yaml", "toml",
+    "lua", "vim", "vimdoc", "query", 
+  },
   highlight = {
     enable = true,
   },
@@ -74,6 +78,7 @@ ts.setup {
     enable = true,
   },
 }
+
 
 -- aerial => A code outline window for skimming and quick navigation
 require("aerial").setup({
@@ -86,3 +91,48 @@ require("aerial").setup({
 })
 -- You probably also want to set a keymap to toggle aerial
 vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
+
+
+
+-- bufferline
+require("bufferline").setup({
+  options = {
+    mode = "buffers",
+    themable = true,
+    max_name_lenght = 24,
+    tab_size = 22,
+
+    numbers = function(opts)
+      return string.format('%s|%s', opts.id, opts.raise(opts.ordinal))
+    end,
+    close_command = "bdelete! %d",
+    indicator ={
+      style = "underline",
+    },
+    separator_style = "slope",
+  },
+})
+
+
+----- lua line configuration
+require('lualine').setup({
+  options = {
+    theme = 'ayu_dark'
+  }
+})
+
+local wilder = require('wilder')
+wilder.setup({modes = {':', '/', '?'}})
+wilder.set_option('renderer', wilder.popupmenu_renderer(
+  wilder.popupmenu_border_theme({
+    highlights = {
+      border = 'Normal', -- highlight to use for the border
+    },
+    -- 'single', 'double', 'rounded' or 'solid'
+    -- can also be a list of 8 characters, see :h wilder#popupmenu_border_theme() for more details
+    border = 'rounded',
+    min_width = '40%',
+  })
+))
+
+

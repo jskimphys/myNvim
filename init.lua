@@ -24,9 +24,17 @@ vim.opt.mouse='a'           -- mouse support - necessary evil
 vim.opt.encoding='utf-8'     -- set korean incodings
 vim.opt.ttimeout  = true          -- faster esc
 vim.opt.ttimeoutlen=50     -- faster esc 50ms
-vim.opt.clipboard='unnamedplus'
+vim.opt.colorcolumn='81'   -- show 80 column line
 --filetype indent on     -- load filetype-specific indent files
 --filetype plugin on     -- load filetype-specific plugin files
+
+-- status line 
+vim.opt.laststatus=2
+vim.opt.showtabline=2
+vim.opt.cmdheight=1
+vim.opt.ruler=true
+vim.opt.showmode=false
+
 
 -- search options
 vim.opt.hlsearch = true
@@ -35,14 +43,6 @@ vim.opt.incsearch = true
 vim.opt.smartcase = true
 
 
--- for vim-airline
--- vim.opt.noshowmode=true
-vim.opt.laststatus=2
-vim.opt.showtabline=2
-vim.opt.cmdheight=1
-vim.opt.ruler=true
-vim.opt.showmode=false
-
 --colorscheme
 -- set true colors
 vim.opt.termguicolors = true
@@ -50,7 +50,7 @@ vim.opt.background='dark'
 vim.cmd.colorscheme('tokyonight-storm')
 
 
--- faster Scroll
+-- faster Scroll (note that <C-u> and <C-d> are default, but with larger jump)
 vim.keymap.set('n', '<C-e>', '10<C-e>', { desc = 'faster scroll' })
 vim.keymap.set('n', '<C-y>', '10<C-y>', { desc = 'faster scroll' })
 
@@ -68,8 +68,7 @@ vim.opt.undolevels = 5000
 vim.opt.swapfile = true
 vim.opt.directory = vim.fn.expand('$HOME/.nvim/swapdir')
 
-
--- create directories for undodir and backupdir
+-- create directories for undodir and backupdir, if they don't exist
 if vim.fn.isdirectory(vim.fn.expand('$HOME/.nvim/undodir')) == 0 then
   vim.fn.mkdir(vim.fn.expand('$HOME/.nvim/undodir'), 'p')
 end
@@ -77,6 +76,8 @@ if vim.fn.isdirectory(vim.fn.expand('$HOME/.nvim/swapdir')) == 0 then
   vim.fn.mkdir(vim.fn.expand('$HOME/.nvim/swapdir'), 'p')
 end
 
+
+--------------------- FILETYPE ------------------------------
 -- filetype
 vim.cmd('filetype plugin indent on')
 -- julia python indent
@@ -85,7 +86,7 @@ vim.cmd('autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4')
 
 
 -- define glsl filetype
-vim.cmd('autocmd BufNewFile,BufRead *.frag,*.vert,*.comp set filetype=glsl')
+vim.cmd('autocmd BufNewFile,BufRead *.frag,*.vert,*.comp,*.glsl set filetype=glsl')
 vim.cmd('autocmd BufNewFile,BufRead *.wgsl set filetype=wgsl')
 vim.treesitter.language.register("glsl", "glsl")
 
@@ -121,7 +122,11 @@ require('mason').setup({})
 require('mason-lspconfig').setup({
   -- NOTE: check the available servers here
   -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
-  ensure_installed = {'julials', 'clangd', 'matlab_ls', 'pyright', 'glsl_analyzer', 'markdown_oxide', 'wgsl_analyzer', 'jsonls', 'html', 'taplo'},
+  ensure_installed = {
+    'julials', 'clangd', 'matlab_ls', 'pyright', 
+    'glsl_analyzer', 'markdown_oxide', 'wgsl_analyzer', 
+    'jsonls', 'html', 'taplo'
+  },
   -- clangd setup
   clangd = {
     cmd = {'clangd', '--background-index', '--query-driver=/usr/bin/c++'},
@@ -141,28 +146,3 @@ require('mason-lspconfig').setup({
 ----- indentline configuration
 vim.g.indentLine_color_term = 243
 vim.g.indentLine_char_list = {'|', '¦', '┆', '┊'}
-
------  bufferline configuration
-require("bufferline").setup{}
-
------ lua line configuration
-require('lualine').setup({
-  options = {
-    theme = 'ayu_dark'
-  }
-})
-
-local wilder = require('wilder')
-wilder.setup({modes = {':', '/', '?'}})
-wilder.set_option('renderer', wilder.popupmenu_renderer(
-  wilder.popupmenu_border_theme({
-    highlights = {
-      border = 'Normal', -- highlight to use for the border
-    },
-    -- 'single', 'double', 'rounded' or 'solid'
-    -- can also be a list of 8 characters, see :h wilder#popupmenu_border_theme() for more details
-    border = 'rounded',
-    min_width = '40%',
-  })
-))
-
