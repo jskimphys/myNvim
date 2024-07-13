@@ -51,8 +51,11 @@ plugins = {
 
   -- highlighting
   "yggdroot/indentline",
-  "andymass/vim-matchup",
   "machakann/vim-highlightedyank",
+
+  -- jump between matching tokens(language specific)
+  -- NOTE: use "%" to jump between matching tokens
+  "andymass/vim-matchup",
 
   -- git integration(use ":Git" command)
   "tpope/vim-fugitive",

@@ -1,3 +1,5 @@
+-- NOTE: plugin specifig remaps are in plugins.lua
+
 vim.g.mapleader = " "
 
 -- buffer shortcuts
