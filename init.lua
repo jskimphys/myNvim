@@ -12,6 +12,9 @@ vim.opt.expandtab = true
 -- without this, you backspace is limited
 vim.opt.backspace='indent,eol,start'
 
+-- prevent concealing
+vim.opt.conceallevel=0
+
 --- ui configs
 vim.opt.number = true 
 vim.opt.showcmd  = true 
@@ -63,17 +66,16 @@ vim.keymap.set('n', '<leader>pn', ':set nopaste<CR>', { desc = 'unset paste mode
 
 -- history
 vim.opt.undofile = true
-vim.opt.undodir = vim.fn.expand('$HOME/.nvim/undodir')
+vim.opt.undodir = vim.fn.expand('$HOME/.nvim/$HOST/undodir')
 vim.opt.undolevels = 5000
 vim.opt.swapfile = true
-vim.opt.directory = vim.fn.expand('$HOME/.nvim/swapdir')
 
 -- create directories for undodir and backupdir, if they don't exist
-if vim.fn.isdirectory(vim.fn.expand('$HOME/.nvim/undodir')) == 0 then
-  vim.fn.mkdir(vim.fn.expand('$HOME/.nvim/undodir'), 'p')
+if vim.fn.isdirectory(vim.fn.expand('$HOME/.nvim/$HOST/undodir')) == 0 then
+  vim.fn.mkdir(vim.fn.expand('$HOME/.nvim/$HOST/undodir'), 'p')
 end
-if vim.fn.isdirectory(vim.fn.expand('$HOME/.nvim/swapdir')) == 0 then
-  vim.fn.mkdir(vim.fn.expand('$HOME/.nvim/swapdir'), 'p')
+if vim.fn.isdirectory(vim.fn.expand('$HOME/.nvim/$HOST/backupdir')) == 0 then
+  vim.fn.mkdir(vim.fn.expand('$HOME/.nvim/$HOST/backupdir'), 'p')
 end
 
 
