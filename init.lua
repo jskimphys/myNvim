@@ -53,6 +53,8 @@ vim.opt.background='dark'
 vim.cmd.colorscheme('tokyonight-storm')
 
 
+vim.conceal_level = 0
+
 -- faster Scroll (note that <C-u> and <C-d> are default, but with larger jump)
 vim.keymap.set('n', '<C-e>', '10<C-e>', { desc = 'faster scroll' })
 vim.keymap.set('n', '<C-y>', '10<C-y>', { desc = 'faster scroll' })
@@ -88,7 +90,7 @@ vim.cmd('autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4')
 
 
 -- define glsl filetype
-vim.cmd('autocmd BufNewFile,BufRead *.frag,*.vert,*.comp,*.glsl set filetype=glsl')
+vim.cmd('autocmd BufNewFile,BufRead *.frag,*.vert,*.comp,*.glsl,*.rahit,*.rchit,*.rchit,*.rgen,*.rgen set filetype=glsl')
 vim.cmd('autocmd BufNewFile,BufRead *.wgsl set filetype=wgsl')
 vim.treesitter.language.register("glsl", "glsl")
 
