@@ -59,6 +59,7 @@ plugins = {
 
   -- git integration(use ":Git" command)
   "tpope/vim-fugitive",
+  "lewis6991/gitsigns.nvim",
 
   -- ctags
   "universal-ctags/ctags",
