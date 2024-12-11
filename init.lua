@@ -90,7 +90,7 @@ vim.cmd('autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4')
 
 
 -- define glsl filetype
-vim.cmd('autocmd BufNewFile,BufRead *.frag,*.vert,*.comp,*.glsl,*.rahit,*.rchit,*.rchit,*.rgen,*.rgen set filetype=glsl')
+vim.cmd('autocmd BufNewFile,BufRead *.frag,*.vert,*.comp,*.glsl,*.rahit,*.rchit,*.rchit,*.rgen,*.rgen,*.rint set filetype=glsl')
 vim.cmd('autocmd BufNewFile,BufRead *.wgsl set filetype=wgsl')
 vim.treesitter.language.register("glsl", "glsl")
 
@@ -102,17 +102,24 @@ require('setup/plugins')
 local lsp = require('lsp-zero')
 
 lsp.preset('recommended')
-lsp.format_on_save(
-  {
-    format_opts = {
-      async = true,
-      timeout_ms = 5000,
-    },
-    servers = {
-      ['rust-analyzer'] = {'rust'},
-      ['clangd'] = {'c', 'cpp', 'cu'}
-    }
-  })
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(event)
+    local opts = {buffer = event.buf}
+
+    -- if buffer is cpp or c
+    -- then set formatting keymaps 
+    if vim.bo.filetype == 'cpp' or vim.bo.filetype == 'c' then
+      vim.keymap.set({'n', 'x'}, 'gq', function()
+        vim.lsp.buf.format({async = false, timeout_ms = 10000})
+      end, opts)
+
+      vim.keymap.set({'v'}, 'gq', function()
+        vim.lsp.buf.format({async = false, timeout_ms = 10000})
+      end, opts)
+    end
+  end
+})
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
