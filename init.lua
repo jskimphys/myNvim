@@ -109,8 +109,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- if buffer is cpp or c
     -- then set formatting keymaps 
-    if vim.bo.filetype == 'cpp' or vim.bo.filetype == 'c' then
-      vim.keymap.set({'n', 'x'}, 'gq', function()
+    if vim.bo.filetype == 'cpp' or vim.bo.filetype == 'c' or vim.bo.filetype ==
+      'cuda' then vim.keymap.set({'n', 'x'}, 'gq', function()
         vim.lsp.buf.format({async = false, timeout_ms = 10000})
       end, opts)
 
